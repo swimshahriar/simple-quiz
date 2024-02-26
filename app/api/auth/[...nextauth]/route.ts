@@ -1,4 +1,4 @@
-import { ADMIN_USERNAME, UserRoles } from '@/config/constants';
+import { users } from '@/db/users';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -7,36 +7,38 @@ export const authOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
+        username: { label: 'Username', type: 'text', placeholder: 'admin' },
         password: { label: 'Password', type: 'password' },
       },
-      authorize: async (credentials, req) => {
+      authorize: (credentials, req) => {
         if (!credentials) {
           return null;
         }
 
-        const user = {
-          username: credentials.username,
-          password: credentials.password,
-          role:
-            credentials.username === ADMIN_USERNAME
-              ? UserRoles.ADMIN
-              : UserRoles.USER,
-        };
+        const userInfo = users.find(
+          (user) => user.username === credentials.username.toLowerCase()
+        );
 
-        return user;
+        if (
+          !userInfo ||
+          (userInfo && userInfo.password !== credentials.password)
+        ) {
+          return null;
+        }
+
+        return userInfo;
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    jwt: async ({ token, user }) => {
       if (user) {
         token.user = user;
       }
 
       return token;
     },
-    async session({ session, token }) {
+    session: async ({ session, token }) => {
       if (session.user) {
         session.user = token.user;
       }

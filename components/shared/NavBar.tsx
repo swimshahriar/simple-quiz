@@ -2,24 +2,28 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 
-const Header = async () => {
+const NavBar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <header className="navbar">
+    <nav className="container navbar p-0">
       <div className="flex-1">
-        <Link href="/" className="btn btn-ghost text-xl">
+        <Link href="/" className="text-xl">
           Simple Quiz
         </Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href="/manage-questions">Manage Questions</Link>
+            <Link href="/">Questions</Link>
           </li>
 
           <li>
             <Link href="/answers">Answers</Link>
+          </li>
+
+          <li>
+            <Link href="/manage-questions">Manage Questions</Link>
           </li>
 
           {session ? (
@@ -33,8 +37,8 @@ const Header = async () => {
           )}
         </ul>
       </div>
-    </header>
+    </nav>
   );
 };
 
-export default Header;
+export default NavBar;

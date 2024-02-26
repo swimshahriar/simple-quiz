@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AnswersPage = () => {
-  return <main className="container">Common page</main>;
+  return <section>Common page</section>;
 };
 
 export default AnswersPage;

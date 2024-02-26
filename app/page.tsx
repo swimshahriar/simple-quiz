@@ -10,9 +10,9 @@ export default async function Home() {
   }
 
   return (
-    <main className="container">
+    <section>
       <h1>Home</h1>
       {session.user.username}
-    </main>
+    </section>
   );
 }
