@@ -1,3 +1,10 @@
 export enum LocalStorageKeys {
-  USER_INFO = 'user-info',
+  USER = 'user',
+}
+
+export const ADMIN_USERNAME = 'admin';
+
+export enum UserRoles {
+  ADMIN = 'admin',
+  USER = 'user',
 }
