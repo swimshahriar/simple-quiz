@@ -1,4 +1,13 @@
-export const mockUsers = [
+import { UserRoles } from '@/config/constants';
+
+export type User = {
+  id: string;
+  username: string;
+  password: string;
+  role: `${UserRoles}`;
+};
+
+export const mockUsers: User[] = [
   {
     id: '1',
     username: 'admin',
