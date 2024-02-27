@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+"Simple Quiz" is a user-friendly application designed for both administrators and users to engage in a seamless quiz-taking experience. Administrators have the capability to effortlessly add, update, and delete questions, ensuring that the content remains fresh and relevant. They can also access a comprehensive overview of user answers for each question.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+On the user side, individuals can participate in quizzes by answering questions presented to them. The application keeps track of their previous answers, allowing users to review their performance and track their progress over time. With its intuitive interface and robust functionality, "Simple Quiz" provides an enjoyable and educational platform for users to test their knowledge and learn new information.
+
+## Developer Experience
+
+- Nextjs + TypeScript
+- TailwindCss + DaisyUI
+- Zustand
+- NextAuth
+
+## Overview of the App
+
+![Diagram](image.png)
+
+## Data Structure
+
+```js
+const question = {
+    id: 1,
+    question: 'How many legs does a spider have?',
+    answers: {
+      'username': {
+        currentAnswer: 'eight',
+        previousAnswers: ['Eight', '8'],
+      }
+    },
+  },
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Mock User Credentials
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can find these credentials inside `db/users.ts` file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```js
+[
+  {
+    id: '1',
+    username: 'admin',
+    password: 'admin',
+    role: 'admin',
+  },
+  {
+    id: '2',
+    username: 'user',
+    password: 'user',
+    role: 'user',
+  },
+  {
+    id: '3',
+    username: 'user2',
+    password: 'user2',
+    role: 'user',
+  },
+];
+```
 
-## Learn More
+## Project setup for `Development`
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone project on your local machine by running `git clone https://github.com/swimshahriar/simple-quiz.git`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Go to the project directory `simple-quiz` and execute
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm i
+# or
+yarn
+```
 
-## Deploy on Vercel
+3. Create a file called `.env.local` in the root directory and insert these environment variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+NEXTAUTH_SECRET=anyTextHere
+NEXTAUTH_URL=http://localhost:3000
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. Finally run `npm run dev` or `yarn dev` to start the dev server.
