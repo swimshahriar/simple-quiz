@@ -24,6 +24,15 @@ export default function RootLayout({
         </header>
 
         <main className="container py-4 px-4 md:px-0">{children}</main>
+
+        <footer className="footer footer-center p-4 bg-base-300 text-base-content">
+          <aside>
+            <p>
+              Copyright © {new Date().getFullYear()} - All right reserved by
+              Simple Quiz.
+            </p>
+          </aside>
+        </footer>
       </body>
     </html>
   );

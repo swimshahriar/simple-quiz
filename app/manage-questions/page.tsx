@@ -8,6 +8,7 @@ import { routes } from '@/config/routes';
 import { QuestionFormat } from '@/db/questions';
 import { useQuizStore } from '@/store/quizStore';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -31,6 +32,11 @@ const ManageQuestionsPage = () => {
   const loadQuestions = useQuizStore((state) => state.loadQuestions);
 
   const submitHandler = () => {
+    if (!inputText || !inputText.length) {
+      alert('Question is required');
+      return;
+    }
+
     if (currentMode === 'Create') {
       const question: QuestionFormat = {
         id: Number(new Date()),
@@ -70,7 +76,7 @@ const ManageQuestionsPage = () => {
   }
 
   return (
-    <section className="flex flex-col gap-12 pt-8">
+    <section className="flex flex-col gap-12 py-8">
       <h1 className="text-4xl uppercase text-center">Manage Questions</h1>
 
       <div className="text-center">
@@ -93,11 +99,14 @@ const ManageQuestionsPage = () => {
               <Question index={index} question={question} />
 
               <div className="flex items-center gap-4 pt-3 flex-wrap">
-                <button className="btn btn-info btn-sm" type="button">
+                <Link
+                  href={routes.answers(String(question.id))}
+                  className="btn btn-info btn-sm"
+                >
                   View Answers
-                </button>
+                </Link>
                 <button
-                  className="btn btn-secondary btn-sm"
+                  className="btn btn-secondary btn-sm btn-outline"
                   type="button"
                   onClick={() => {
                     setCurrentMode('Update');
@@ -109,7 +118,7 @@ const ManageQuestionsPage = () => {
                   Edit
                 </button>
                 <button
-                  className="btn btn-error btn-sm"
+                  className="btn btn-error btn-sm btn-outline"
                   type="button"
                   onClick={() => {
                     const isConfirm = confirm(

@@ -1,6 +1,6 @@
 export const routes = {
   home: '/',
-  answers: '/answers',
+  answers: (qid: string) => `/answers/${qid}`,
   manageQuestions: '/manage-questions',
   accessDenied: '/access-denied',
   login: '/api/auth/signin',
