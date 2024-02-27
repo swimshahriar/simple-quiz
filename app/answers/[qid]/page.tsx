@@ -57,22 +57,26 @@ const AnswersPage = () => {
           </h3>
 
           <div className="flex flex-col gap-4 flex-wrap py-4">
-            {Object.entries(question.answers).map(([username, answers]) => {
-              return (
-                <div
-                  key={username}
-                  className="flex gap-2 shadow ring-1 rounded p-2 text-lg"
-                >
-                  <p>
-                    <span className="font-bold">Answer:</span>{' '}
-                    {answers.currentAnswer}
-                  </p>
-                  <p>
-                    <span className="font-bold">Answered By:</span> {username}
-                  </p>
-                </div>
-              );
-            })}
+            {Object.keys(question.answers).length > 0 ? (
+              Object.entries(question.answers).map(([username, answers]) => {
+                return (
+                  <div
+                    key={username}
+                    className="flex gap-2 shadow ring-1 rounded p-2 text-lg"
+                  >
+                    <p>
+                      <span className="font-bold">Answer:</span>{' '}
+                      {answers.currentAnswer}
+                    </p>
+                    <p>
+                      <span className="font-bold">Answered By:</span> {username}
+                    </p>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No Answers Found!</p>
+            )}
           </div>
         </div>
       ) : (
