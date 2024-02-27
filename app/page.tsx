@@ -13,9 +13,16 @@ export default async function Home() {
       <h1 className="text-4xl">Welcome to Simple Quiz!</h1>
 
       {!session ? (
-        <Link className="btn btn-primary" href={routes.login}>
-          Sign in
-        </Link>
+        <>
+          <p className="max-w-screen-sm text-lg">
+            Simple Quiz is an app where admins manage questions and view user
+            answers. Users can answer questions, review their past answers, and
+            track their progress.
+          </p>
+          <Link className="btn btn-primary" href={routes.login}>
+            Login
+          </Link>
+        </>
       ) : session?.user?.role === UserRoles.ADMIN ? (
         <>
           <p className="text-md">Create, Update, Delete Quiz Questions.</p>
