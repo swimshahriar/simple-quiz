@@ -1,4 +1,4 @@
-import { users } from '@/db/users';
+import { mockUsers } from '@/db/users';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -15,7 +15,7 @@ export const authOptions = {
           return null;
         }
 
-        const userInfo = users.find(
+        const userInfo = mockUsers.find(
           (user) => user.username === credentials.username.toLowerCase()
         );
 

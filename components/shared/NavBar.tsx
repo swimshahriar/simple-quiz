@@ -6,7 +6,7 @@ const NavBar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <nav className="container navbar p-0">
+    <nav className="container px-4 md:px-0 navbar p-0">
       <div className="flex-1">
         <Link href="/" className="text-xl">
           Simple Quiz
