@@ -20,13 +20,9 @@ const NavBar = async () => {
             <Link href={routes.home}>Home</Link>
           </li>
 
-          {session?.user?.role === UserRoles.ADMIN ? (
+          {session?.user?.role === UserRoles.ADMIN && (
             <li>
               <Link href={routes.manageQuestions}>Manage Questions</Link>
-            </li>
-          ) : (
-            <li>
-              <Link href={routes.answers}>Answers</Link>
             </li>
           )}
 
