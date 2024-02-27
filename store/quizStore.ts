@@ -6,7 +6,8 @@ import { create } from 'zustand';
 type QuizStore = {
   questions: QuestionFormat[];
   loadQuestions: () => void;
-  updateQuestions: (question: QuestionFormat) => void;
+  addQuestion: (question: QuestionFormat) => void;
+  updateQuestion: (question: QuestionFormat) => void;
   deleteQuestion: (questionId: QuestionFormat['id']) => void;
 };
 
@@ -32,7 +33,15 @@ export const useQuizStore = create<QuizStore>()((set) => ({
 
       return { ...state, questions: questionsArray };
     }),
-  updateQuestions: (question) =>
+  addQuestion: (question) =>
+    set((state) => {
+      const questions = [...state.questions, question];
+
+      setToLocalStorage(LocalStorageKeys.QUESTIONS, JSON.stringify(questions));
+
+      return { ...state, questions };
+    }),
+  updateQuestion: (question) =>
     set((state) => {
       const questions = state.questions.map((q) => {
         if (q.id === question.id) {

@@ -25,11 +25,31 @@ const ManageQuestionsPage = () => {
   const [inputText, setInputText] = useState('');
 
   const questions = useQuizStore((state) => state.questions);
-  const updateQuestions = useQuizStore((state) => state.updateQuestions);
+  const addQuestion = useQuizStore((state) => state.addQuestion);
+  const updateQuestion = useQuizStore((state) => state.updateQuestion);
   const deleteQuestion = useQuizStore((state) => state.deleteQuestion);
   const loadQuestions = useQuizStore((state) => state.loadQuestions);
 
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    if (currentMode === 'Create') {
+      const question: QuestionFormat = {
+        id: Number(new Date()),
+        question: inputText,
+        answers: {},
+      };
+      addQuestion(question);
+    } else if (currentMode === 'Update' && currentQuestion) {
+      const question: QuestionFormat = {
+        ...currentQuestion,
+        question: inputText,
+      };
+      updateQuestion(question);
+    }
+
+    setIsOpen(false);
+    setInputText('');
+    setCurrentMode('Create');
+  };
 
   useEffect(() => {
     loadQuestions();
