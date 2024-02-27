@@ -2,7 +2,7 @@
 
 import Modal from '@/components/Modal';
 import Question from '@/components/Question';
-import { QuestionFormat, questions } from '@/db/questions';
+import { QuestionFormat } from '@/db/questions';
 import { useQuizStore } from '@/store/quizStore';
 import { useEffect, useState } from 'react';
 
@@ -14,10 +14,11 @@ const ManageQuestionsPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<QuestionFormat | null>(
     null
   );
+  const [inputText, setInputText] = useState('');
 
   const questions = useQuizStore((state) => state.questions);
   const updateQuestions = useQuizStore((state) => state.updateQuestions);
-  const deleteQuestions = useQuizStore((state) => state.deleteQuestion);
+  const deleteQuestion = useQuizStore((state) => state.deleteQuestion);
   const loadQuestions = useQuizStore((state) => state.loadQuestions);
 
   const submitHandler = () => {};
@@ -60,11 +61,25 @@ const ManageQuestionsPage = () => {
                   onClick={() => {
                     setCurrentMode('Update');
                     setCurrentQuestion(question);
+                    setInputText(question.question);
+                    setTimeout(() => setIsOpen(true));
                   }}
                 >
                   Edit
                 </button>
-                <button className="btn btn-error btn-sm" type="button">
+                <button
+                  className="btn btn-error btn-sm"
+                  type="button"
+                  onClick={() => {
+                    const isConfirm = confirm(
+                      'Are you sure you want to delete this question?'
+                    );
+
+                    if (isConfirm) {
+                      deleteQuestion(question.id);
+                    }
+                  }}
+                >
                   Delete
                 </button>
               </div>
@@ -86,10 +101,16 @@ const ManageQuestionsPage = () => {
               id="question"
               rows={4}
               className="textarea textarea-bordered w-full"
+              value={inputText}
+              onChange={(event) => setInputText(event.target.value)}
             />
 
             <div className="text-right">
-              <button className="btn btn-primary" type="button">
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={submitHandler}
+              >
                 {currentMode}
               </button>
             </div>

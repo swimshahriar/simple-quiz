@@ -42,11 +42,14 @@ export const useQuizStore = create<QuizStore>()((set) => ({
         return q;
       });
 
+      setToLocalStorage(LocalStorageKeys.QUESTIONS, JSON.stringify(questions));
+
       return { ...state, questions };
     }),
   deleteQuestion: (questionId) =>
     set((state) => {
       const questions = state.questions.filter((q) => q.id !== questionId);
+      setToLocalStorage(LocalStorageKeys.QUESTIONS, JSON.stringify(questions));
 
       return { ...state, questions };
     }),
