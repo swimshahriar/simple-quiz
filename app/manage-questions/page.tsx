@@ -2,13 +2,21 @@
 
 import Modal from '@/components/Modal';
 import Question from '@/components/Question';
+import Loader from '@/components/shared/Loader';
+import { UserRoles } from '@/config/constants';
+import { routes } from '@/config/routes';
 import { QuestionFormat } from '@/db/questions';
 import { useQuizStore } from '@/store/quizStore';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 type Mode = 'Create' | 'Update';
 
 const ManageQuestionsPage = () => {
+  const { status, data } = useSession();
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const [currentMode, setCurrentMode] = useState<Mode>('Create');
   const [currentQuestion, setCurrentQuestion] = useState<QuestionFormat | null>(
@@ -27,6 +35,19 @@ const ManageQuestionsPage = () => {
     loadQuestions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (status === 'loading') {
+    return <Loader />;
+  }
+
+  if (
+    status !== 'authenticated' ||
+    !data.user ||
+    data.user.role !== UserRoles.ADMIN
+  ) {
+    router.push(routes.accessDenied);
+    return null;
+  }
 
   return (
     <section className="flex flex-col gap-12 pt-8">

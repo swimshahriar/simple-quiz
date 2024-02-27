@@ -1,14 +1,11 @@
-import type { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Simple Quiz | Manage Questions',
-  description: 'Create, Read, Update and Delete Quiz Questions.',
-};
+import { SessionProvider } from 'next-auth/react';
 
 export default function ManageQuestionsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return <SessionProvider>{children}</SessionProvider>;
 }

@@ -8,7 +8,11 @@ export const authOptions = {
       name: 'Credentials',
       credentials: {
         username: { label: 'Username', type: 'text', placeholder: 'admin' },
-        password: { label: 'Password', type: 'password' },
+        password: {
+          label: 'Password',
+          type: 'password',
+          placeholder: '*******',
+        },
       },
       authorize: (credentials, req) => {
         if (!credentials) {
